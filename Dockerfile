@@ -12,6 +12,7 @@ RUN apt-get update && \
     && docker-php-ext-install bcmath\
     && docker-php-ext-install pcntl\
     && docker-php-ext-install zip\
+    && docker-php-ext-configure gd --with-jpeg-dir=/usr/include/
     && docker-php-ext-install gd\
     && mkdir -p /var/log/supervisor
 
