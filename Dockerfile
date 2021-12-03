@@ -1,7 +1,7 @@
 FROM devilbox/php-fpm:7.3-base
 
 RUN apt-get update && \
-    apt-get install libonig-dev libldap2-dev libzip-dev libxml2-dev libfreetype6-dev libjpeg62-turbo-dev libmcrypt-dev cron zip vim libcurl4-openssl-dev pkg-config libssl-dev libpng-dev libpq-dev postgresql -y \
+    apt-get install git libonig-dev libldap2-dev libzip-dev libxml2-dev libfreetype6-dev libjpeg62-turbo-dev libmcrypt-dev cron zip vim libcurl4-openssl-dev pkg-config libssl-dev libpng-dev libpq-dev postgresql -y \
     && docker-php-ext-install -j$(nproc) iconv soap mysqli mbstring\
     && docker-php-ext-install pdo_mysql xml fileinfo \
     && docker-php-ext-configure intl\
