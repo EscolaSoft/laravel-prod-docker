@@ -1,7 +1,7 @@
 FROM devilbox/php-fpm:7.3-base
 
 RUN apt-get update && \
-    apt-get install libonig-dev libzip-dev libxml2-dev libfreetype6-dev libjpeg62-turbo-dev libmcrypt-dev cron zip vim libcurl4-openssl-dev pkg-config libssl-dev libpng-dev libpq-dev postgresql -y \
+    apt-get install libonig-dev libldap2-dev libzip-dev libxml2-dev libfreetype6-dev libjpeg62-turbo-dev libmcrypt-dev cron zip vim libcurl4-openssl-dev pkg-config libssl-dev libpng-dev libpq-dev postgresql -y \
     && docker-php-ext-install -j$(nproc) iconv soap mysqli mbstring\
     && docker-php-ext-install pdo_mysql xml fileinfo \
     && docker-php-ext-configure intl\
@@ -12,8 +12,10 @@ RUN apt-get update && \
     && docker-php-ext-install bcmath\
     && docker-php-ext-install pcntl\
     && docker-php-ext-install zip\
-    && docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg\
-    && docker-php-ext-install -j$(nproc) gd
+    && docker-php-ext-configure gd --with-gd --with-freetype-dir --with-jpeg-dir\
+    && docker-php-ext-install -j$(nproc) gd \
+    && docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu/ \
+    && docker-php-ext-install ldap
 
 # composer
 RUN curl --silent --show-error https://getcomposer.org/composer.phar > composer.phar \
